@@ -15,11 +15,13 @@ import {
 } from 'react-native';
 
 import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
-import {requestPushNotifications} from './PermissionUtils';
+import {requestPushNotifications} from './utils/PermissionUtils';
+import {getDeviceToken} from './utils/FirebaseUtils';
 
 function App(): JSX.Element {
   React.useEffect(() => {
     requestPushNotifications();
+    getDeviceToken();
   }, []);
 
   const isDarkMode = useColorScheme() === 'dark';
