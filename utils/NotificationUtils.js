@@ -1,4 +1,4 @@
-import notifee from '@notifee/react-native';
+import notifee, {EventType} from '@notifee/react-native';
 
 export const onDisplayNotification = async notification => {
   // konsep khusus Android yang digunakan untuk mengategorikan
@@ -49,4 +49,24 @@ Membatalkan semua / salah satu notifikasi
 export const onCancelDisplayNotification = async () => {
   await notifee.cancelAllNotifications();
   // await notifee.cancelNotification(notificationId, tag);
+};
+
+/*
+Digunakan untuk membuat / menangani acara notifikasi saat aplikasi berada di latar depan(foreground)
+Saat perangkat tidak terkunci, aplikasi sedang berjalan dan atau saat berada dalam tampilan aplikasi
+ */
+export const onForegroundEvent = () => {
+  return notifee.onForegroundEvent(({type, detail}) => {
+    switch (type) {
+      case EventType.DISMISSED:
+        // saat kita mengabaikan notifikasi yang muncul saat kita berada di latar depan
+        // maka case ini akan berjalan
+        console.log('User dismissed notification', detail.notification);
+        break;
+      case EventType.PRESS:
+        // saat kita menekan notifikasi yang muncul saat kita berada di latar depan
+        console.log('User pressed notification', detail.notification);
+        break;
+    }
+  });
 };

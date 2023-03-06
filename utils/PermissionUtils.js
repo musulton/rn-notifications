@@ -1,6 +1,5 @@
 import {PermissionsAndroid} from 'react-native';
 import {requestNotifications} from 'react-native-permissions';
-import { settings } from "@react-native-community/eslint-config";
 
 /*
 Untuk android api level 32 ke bawah tidak perlu meminta izin karena rekues akan selalu sukses.

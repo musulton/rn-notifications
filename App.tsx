@@ -14,6 +14,7 @@ import {getDeviceToken, subscribe} from './utils/FirebaseUtils';
 import {
   onCancelDisplayNotification,
   onDisplayNotification,
+  onForegroundEvent,
   onMockDisplayNotification,
 } from './utils/NotificationUtils';
 
@@ -24,6 +25,11 @@ function App(): JSX.Element {
     requestPushNotifications();
     getDeviceToken();
     subscribe(setNotification);
+    const foregroundListener = onForegroundEvent();
+
+    return () => {
+      foregroundListener();
+    };
   }, []);
 
   React.useEffect(() => {

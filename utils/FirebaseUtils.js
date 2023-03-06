@@ -12,7 +12,11 @@ export const getDeviceToken = () => {
 };
 
 export const subscribe = setNotification => {
-  firebase.messaging().onMessage(r => {
+  messaging().onMessage(r => {
+    setNotification(r?.notification);
+  });
+
+  messaging().setBackgroundMessageHandler(r => {
     setNotification(r?.notification);
   });
 };
