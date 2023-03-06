@@ -6,16 +6,15 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  useColorScheme,
-} from 'react-native';
+import {SafeAreaView, StatusBar, useColorScheme, Button} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 import {requestPushNotifications} from './utils/PermissionUtils';
 import {getDeviceToken, subscribe} from './utils/FirebaseUtils';
+import {
+  onCancelDisplayNotification,
+  onDisplayNotification,
+} from './utils/NotificationUtils';
 
 function App(): JSX.Element {
   React.useEffect(() => {
@@ -36,11 +35,11 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-      </ScrollView>
+      <Button title={'Display Notification'} onPress={onDisplayNotification} />
+      <Button
+        title={'Cancel Notification'}
+        onPress={onCancelDisplayNotification}
+      />
     </SafeAreaView>
   );
 }
