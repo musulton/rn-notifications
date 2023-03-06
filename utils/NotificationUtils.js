@@ -56,7 +56,7 @@ Digunakan untuk membuat / menangani acara notifikasi saat aplikasi berada di lat
 Saat perangkat tidak terkunci, aplikasi sedang berjalan dan atau saat berada dalam tampilan aplikasi
  */
 export const onForegroundEvent = () => {
-  notifee.onForegroundEvent(({type, detail}) => {
+  return notifee.onForegroundEvent(({type, detail}) => {
     switch (type) {
       case EventType.DISMISSED:
         // saat kita mengabaikan notifikasi yang muncul saat kita berada di latar depan

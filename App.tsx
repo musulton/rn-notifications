@@ -25,7 +25,11 @@ function App(): JSX.Element {
     requestPushNotifications();
     getDeviceToken();
     subscribe(setNotification);
-    onForegroundEvent();
+    const foregroundListener = onForegroundEvent();
+
+    return () => {
+      foregroundListener();
+    };
   }, []);
 
   React.useEffect(() => {
