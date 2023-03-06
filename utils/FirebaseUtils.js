@@ -15,8 +15,4 @@ export const subscribe = setNotification => {
   messaging().onMessage(r => {
     setNotification(r?.notification);
   });
-
-  messaging().setBackgroundMessageHandler(r => {
-    setNotification(r?.notification);
-  });
 };
