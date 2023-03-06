@@ -10,3 +10,9 @@ export const getDeviceToken = () => {
     .then(r => console.log(r))
     .catch(e => console.log(e));
 };
+
+export const subscribe = () => {
+  firebase.messaging().onMessage(r => {
+    console.log(JSON.stringify(r));
+  });
+};

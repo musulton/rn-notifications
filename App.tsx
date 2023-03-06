@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,12 +15,13 @@ import {
 
 import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 import {requestPushNotifications} from './utils/PermissionUtils';
-import {getDeviceToken} from './utils/FirebaseUtils';
+import {getDeviceToken, subscribe} from './utils/FirebaseUtils';
 
 function App(): JSX.Element {
   React.useEffect(() => {
     requestPushNotifications();
     getDeviceToken();
+    subscribe();
   }, []);
 
   const isDarkMode = useColorScheme() === 'dark';
