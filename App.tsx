@@ -14,14 +14,24 @@ import {getDeviceToken, subscribe} from './utils/FirebaseUtils';
 import {
   onCancelDisplayNotification,
   onDisplayNotification,
+  onMockDisplayNotification,
 } from './utils/NotificationUtils';
 
 function App(): JSX.Element {
+  const [notification, setNotification] = React.useState(null);
+
   React.useEffect(() => {
     requestPushNotifications();
     getDeviceToken();
-    subscribe();
+    subscribe(setNotification);
   }, []);
+
+  React.useEffect(() => {
+    if (notification != null) {
+      onDisplayNotification(notification);
+      setNotification(null);
+    }
+  }, [notification]);
 
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -35,7 +45,10 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <Button title={'Display Notification'} onPress={onDisplayNotification} />
+      <Button
+        title={'Display Notification'}
+        onPress={onMockDisplayNotification}
+      />
       <Button
         title={'Cancel Notification'}
         onPress={onCancelDisplayNotification}

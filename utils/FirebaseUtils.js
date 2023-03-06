@@ -11,8 +11,8 @@ export const getDeviceToken = () => {
     .catch(e => console.log(e));
 };
 
-export const subscribe = () => {
+export const subscribe = setNotification => {
   firebase.messaging().onMessage(r => {
-    console.log(JSON.stringify(r));
+    setNotification(r?.notification);
   });
 };
