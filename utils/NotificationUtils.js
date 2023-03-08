@@ -1,4 +1,4 @@
-import notifee, {EventType} from '@notifee/react-native';
+import notifee, {AndroidImportance, EventType} from '@notifee/react-native';
 
 export const onDisplayNotification = async notification => {
   // konsep khusus Android yang digunakan untuk mengategorikan
@@ -6,6 +6,7 @@ export const onDisplayNotification = async notification => {
   const channelId = await notifee.createChannel({
     id: 'my-channel',
     name: 'My Channel',
+    importance: AndroidImportance.HIGH,
   });
 
   // Setelah saluran dibuat, displayNotification metode ini disebut meneruskan a title dan body.
@@ -67,6 +68,18 @@ export const onForegroundEvent = () => {
         // saat kita menekan notifikasi yang muncul saat kita berada di latar depan
         console.log('User pressed notification', detail.notification);
         break;
+    }
+  });
+};
+
+export const onBackgroundEvent = async () => {
+  notifee.onBackgroundEvent(async ({type, detail}) => {
+    const {notification, pressAction} = detail;
+
+    if (type === EventType.ACTION_PRESS) {
+      console.log('Pressed notification', pressAction.id);
+
+      await notifee.cancelNotification(notification.id);
     }
   });
 };

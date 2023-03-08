@@ -10,34 +10,31 @@ import {SafeAreaView, StatusBar, useColorScheme, Button} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import {requestPushNotifications} from './utils/PermissionUtils';
-import {getDeviceToken, subscribe} from './utils/FirebaseUtils';
+import {
+  getDeviceToken,
+  subscribeBackground,
+  subscribeForeground,
+} from './utils/FirebaseUtils';
 import {
   onCancelDisplayNotification,
-  onDisplayNotification,
   onForegroundEvent,
   onMockDisplayNotification,
 } from './utils/NotificationUtils';
 
 function App(): JSX.Element {
-  const [notification, setNotification] = React.useState(null);
-
   React.useEffect(() => {
     requestPushNotifications();
     getDeviceToken();
-    subscribe(setNotification);
-    const foregroundListener = onForegroundEvent();
+
+    subscribeBackground();
+    const foregroundMessage = subscribeForeground();
+    const foregroundEventListener = onForegroundEvent();
 
     return () => {
-      foregroundListener();
+      foregroundMessage();
+      foregroundEventListener();
     };
   }, []);
-
-  React.useEffect(() => {
-    if (notification != null) {
-      onDisplayNotification(notification);
-      setNotification(null);
-    }
-  }, [notification]);
 
   const isDarkMode = useColorScheme() === 'dark';
 
