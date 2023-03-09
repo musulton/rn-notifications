@@ -12,7 +12,6 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {requestPushNotifications} from './utils/PermissionUtils';
 import {
   getDeviceToken,
-  subscribeBackground,
   subscribeForeground,
 } from './utils/FirebaseUtils';
 import {
@@ -26,7 +25,6 @@ function App(): JSX.Element {
     requestPushNotifications();
     getDeviceToken();
 
-    subscribeBackground();
     const foregroundMessage = subscribeForeground();
     const foregroundEventListener = onForegroundEvent();
 

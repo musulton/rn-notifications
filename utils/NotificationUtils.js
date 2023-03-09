@@ -4,9 +4,8 @@ export const onDisplayNotification = async notification => {
   // konsep khusus Android yang digunakan untuk mengategorikan
   // dan memungkinkan pengguna mengontrol cara menangani notifikasi di perangkat mereka
   const channelId = await notifee.createChannel({
-    id: 'my-channel',
-    name: 'My Channel',
-    importance: AndroidImportance.HIGH,
+    id: 'custom_channel',
+    name: 'Custom Channel',
   });
 
   // Setelah saluran dibuat, displayNotification metode ini disebut meneruskan a title dan body.
@@ -27,8 +26,8 @@ export const onDisplayNotification = async notification => {
 
 export const onMockDisplayNotification = async () => {
   const channelId = await notifee.createChannel({
-    id: 'my-channel',
-    name: 'My Channel',
+    id: 'mock-channel',
+    name: 'Mock Channel',
   });
 
   await notifee.displayNotification({
